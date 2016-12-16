@@ -21,19 +21,8 @@ public class BookController {
 
     @RequestMapping(method=RequestMethod.GET, produces="application/json")
     public @ResponseBody List<Book> getBooks() throws Exception {    
-        System.out.println("TRACER HELLO");
         List<Book> books = bookRepository.findAll();
 
-/*
-        books = new ArrayList<Book>();
-        Book book = new Book();
-        book.setId(999L);
-        book.setAuthor("Hunter S Thompson");
-        book.setTitle("Fear and Loathing in Las Vegas");
-        books.add(book);
-*/
-        System.out.println("TRACER CP2: " + books.size());
-        
-        return books; // new ObjectMapper().writeValueAsString(books);
+        return books; 
     }
 }
