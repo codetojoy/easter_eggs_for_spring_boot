@@ -7,3 +7,8 @@
 ### to test
 
 * `spring test tests`
+
+### to package
+
+* `spring jar books.jar .`
+* `java -jar books.jar`
