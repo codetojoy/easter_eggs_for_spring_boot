@@ -41,9 +41,9 @@ def createBook = { title, author ->
 
 getBooks()
 
-// createBook("Call of the Wild", "Jack London")
+createBook("Call of the Wild", "Jack London")
 
-// getBooks()
+getBooks()
 
 println "Ready."
 

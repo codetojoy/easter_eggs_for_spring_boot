@@ -2,9 +2,7 @@ package net.codetojoy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -23,5 +21,15 @@ public class BookController {
         List<Book> books = bookRepository.findAll();
 
         return books; 
+    }
+
+    @RequestMapping(method=RequestMethod.POST, produces="application/json")
+    public @ResponseBody Book createBook(@RequestBody Book book) {
+        List<Book> entities = new ArrayList<Book>();
+        entities.add(book);
+        List<Book> results = bookRepository.save(entities);
+        Book savedBook = results.get(0);
+
+        return savedBook;
     }
 }

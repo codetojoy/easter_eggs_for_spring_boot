@@ -17,6 +17,4 @@
 * in another terminal, exec: `ssh -p 2000 user@localhost` 
 * then: `help`
 
-# TODO
 
-* write the POST method
