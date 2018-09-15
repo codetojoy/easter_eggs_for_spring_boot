@@ -4,8 +4,11 @@ cd books
 gradle clean build
 cd ..
 
-mkdir dist
-rm dist/*.war
-cp books/build/libs/books-0.0.1-SNAPSHOT.jar dist
+if [ -d dist ]; then
+rm -rf dist 
+fi 
 
-java -jar dist/books-0.0.1-SNAPSHOT.jar
+mkdir dist
+cp books/build/libs/books.jar dist
+
+java -jar dist/books.jar
