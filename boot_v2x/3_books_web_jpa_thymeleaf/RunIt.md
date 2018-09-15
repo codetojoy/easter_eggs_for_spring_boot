@@ -3,6 +3,7 @@
 
 * SEP 2018
 * uses Spring Boot 2.0.5
+    * changed PK generation to `IDENTITY`
 * changed port to 3130
 * server with Gradle
     * `cd books ; gradle bootRun`
