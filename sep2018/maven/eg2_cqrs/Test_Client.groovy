@@ -7,7 +7,7 @@ import org.apache.http.client.methods.*
 import org.apache.http.entity.*
 import org.apache.http.impl.client.*
 
-def endpoint = 'http://localhost:7170/api/books'
+def endpoint = 'http://localhost:7170/test'
 
 def buildJSON = { response ->
     def bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))
@@ -15,7 +15,7 @@ def buildJSON = { response ->
     return JsonOutput.prettyPrint(jsonResponse)
 }
 
-def getBooks = {
+def getState = {
     def httpGet = new HttpGet(endpoint)
     def client = HttpClientBuilder.create().build()
     def response = client.execute(httpGet)
@@ -39,11 +39,10 @@ def createBook = { title, author ->
 
 // --------------- main
 
-getBooks()
+getState()
 
-createBook("Call of the Wild [${new Date().toString()}]", "Jack London")
+// createBook("Call of the Wild [${new Date().toString()}]", "Jack London")
+// getBooks()
 
-getBooks()
-
-println "[api] :: Ready."
+println "[test] :: Ready."
 

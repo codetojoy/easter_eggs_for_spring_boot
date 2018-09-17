@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 cd demo
-mvn clean package
+mvn package
 cd ..
 
 if [ -d dist ]; then
