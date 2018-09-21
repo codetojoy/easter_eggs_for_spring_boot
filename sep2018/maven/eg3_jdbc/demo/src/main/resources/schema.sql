@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS books;
+
+CREATE TABLE books (
+    id INTEGER NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL
+);
