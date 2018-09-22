@@ -27,7 +27,7 @@ CREATE TABLE answer (
     id INTEGER NOT NULL AUTO_INCREMENT,
     item_id INTEGER NOT NULL,
     question_id INTEGER NOT NULL,
-    answer_txt VARCHAR(255) NOT NULL
+    answer_text VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE value (

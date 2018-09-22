@@ -1,38 +1,29 @@
-
 package net.codetojoy.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-public class Answer {}
-
-/*
 @Entity
 @Table(name="answer")
-public class Answer {
+public class Answer implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="answer_text")
     private String answerText;
 
-    private Long itemId;
-    private Long questionId;
-
-    public Answer() {}
+    @OneToOne @JoinColumn(name="question_id")
+    private Question question;
 
     // -----------
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public Long getItemId() { return itemId; }
-    public void setItemId(Long itemId) { this.itemId = itemId; }
-
-    public Long getItemQuestionId() { return questionId; }
-    public void setItemQuestionId(Long questionId) { this.questionId = questionId; }
+    public Question getQuestion() { return question; }
+    public void setQuestion(Question question) { this.question = question; }
 
     public String getAnswerText() { return answerText; }
     public void setAnswerText(String answerText) { this.answerText = answerText; }
 }
-*/

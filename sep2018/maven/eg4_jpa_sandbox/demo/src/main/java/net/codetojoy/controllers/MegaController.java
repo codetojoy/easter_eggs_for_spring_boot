@@ -16,14 +16,17 @@ public class MegaController {
     private ItemRepository itemRepository;
     private QuestionRepository questionRepository;
     private CodeRepository codeRepository;
+    private AnswerRepository answerRepository;
 
     @Autowired
     public MegaController(BookRepository bookRepository, ItemRepository itemRepository,
-                          QuestionRepository questionRepository, CodeRepository codeRepository) {
+                          QuestionRepository questionRepository, CodeRepository codeRepository,
+                          AnswerRepository answerRepository) {
         this.bookRepository = bookRepository;
         this.itemRepository = itemRepository;
         this.questionRepository = questionRepository;
         this.codeRepository = codeRepository;
+        this.answerRepository = answerRepository;
     }
 
     @RequestMapping(path="/books",method=RequestMethod.GET, produces="application/json")
@@ -47,6 +50,12 @@ public class MegaController {
     @RequestMapping(path="/codes",method=RequestMethod.GET, produces="application/json")
     public @ResponseBody List<Code> getCodes() throws Exception {
         List<Code> results = codeRepository.findAll();
+        return results;
+    }
+
+    @RequestMapping(path="/answers",method=RequestMethod.GET, produces="application/json")
+    public @ResponseBody List<Answer> getAnswers() throws Exception {
+        List<Answer> results = answerRepository.findAll();
         return results;
     }
 }

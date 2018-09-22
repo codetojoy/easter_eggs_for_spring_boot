@@ -11,6 +11,7 @@ def BOOKS_ENDPOINT = 'http://localhost:7170/api/mega/books'
 def ITEMS_ENDPOINT = 'http://localhost:7170/api/mega/items'
 def QUESTIONS_ENDPOINT = 'http://localhost:7170/api/mega/questions'
 def CODES_ENDPOINT = 'http://localhost:7170/api/mega/codes'
+def ANSWERS_ENDPOINT = 'http://localhost:7170/api/mega/answers'
 
 def buildJSON = { response ->
     def bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))
@@ -39,4 +40,6 @@ if (! choice) {
     getThings(QUESTIONS_ENDPOINT)
 } else if (choice.equalsIgnoreCase('codes')) {
     getThings(CODES_ENDPOINT) 
+} else if (choice.equalsIgnoreCase('answers')) {
+    getThings(ANSWERS_ENDPOINT) 
 }
