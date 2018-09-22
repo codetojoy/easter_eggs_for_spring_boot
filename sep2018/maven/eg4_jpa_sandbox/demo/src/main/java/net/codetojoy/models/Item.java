@@ -14,9 +14,8 @@ public class Item implements Serializable {
     @Column(name="name")
     private String name;
 
-    public Item() {}
-
     // -----------
+    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

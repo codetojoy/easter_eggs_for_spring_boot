@@ -11,9 +11,16 @@ CREATE TABLE item (
     name VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE code (
+    id INTEGER NOT NULL,
+    name VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE question (
     id INTEGER NOT NULL AUTO_INCREMENT,
+    code_id INTEGER NOT NULL,
     desc VARCHAR(255) NOT NULL,
+    foreign key (code_id) references code(id)
 );
 
 CREATE TABLE answer (
@@ -21,11 +28,6 @@ CREATE TABLE answer (
     item_id INTEGER NOT NULL,
     question_id INTEGER NOT NULL,
     answer_txt VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE code (
-    id INTEGER NOT NULL,
-    name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE value (

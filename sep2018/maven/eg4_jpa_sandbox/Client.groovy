@@ -22,8 +22,7 @@ def getThings = { endpoint ->
     def httpGet = new HttpGet(endpoint)
     def client = HttpClientBuilder.create().build()
     def response = client.execute(httpGet)
-    println "response: \n" + buildJSON(response)
-    println " -------------------------- "
+    println buildJSON(response)
 }
 
 // --------------- main
@@ -41,5 +40,3 @@ if (! choice) {
 } else if (choice.equalsIgnoreCase('codes')) {
     getThings(CODES_ENDPOINT) 
 }
-
-println "[api] :: Ready."

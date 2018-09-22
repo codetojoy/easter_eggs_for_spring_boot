@@ -15,11 +15,8 @@ public class Code implements Serializable {
     @Column(name="name")
     private String name;
 
-    // @OneToMany(mappedBy="code")
     @OneToMany  @JoinColumn(name = "code_id")
     private List<Value> values;
-
-    public Code() {}
 
     // -----------
 

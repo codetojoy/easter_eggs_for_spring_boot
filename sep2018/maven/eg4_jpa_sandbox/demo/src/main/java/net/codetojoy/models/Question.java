@@ -11,15 +11,20 @@ public class Question implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne @JoinColumn(name="code_id")
+    private Code code;
+
     @Column(name="desc")
     private String desc;
 
-    public Question() {}
-
     // -----------
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public String getDesc() { return desc; }
     public void setDesc(String desc) { this.desc = desc; }
+
+    public Code getCode() { return code; }
+    public void setCode(Code code) { this.code = code; }
 }
