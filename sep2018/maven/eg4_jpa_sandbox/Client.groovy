@@ -26,6 +26,40 @@ def getThings = { endpoint ->
     println buildJSON(response)
 }
 
+// pretty print item 
+
+def doUseCase1 = { 
+    def client = HttpClientBuilder.create().build()
+    def slurper = new JsonSlurper()
+
+    def httpGet = new HttpGet(ITEMS_ENDPOINT)
+    def response = client.execute(httpGet)
+    def jsonResponse = buildJSON(response)
+    def doc = slurper.parseText(jsonResponse)
+    def item = doc[0]
+    def answers = item['answers']
+
+    println item
+    println "item id: " + item['id']
+    println "item name: " + item['name']
+    println "# answers: " + answers.size()
+
+    answers.each { a ->
+        def q = a['question']
+        def c = q['code']
+        def values = c['values']
+    
+        def valuesStr = values.inject("") { acc, value ->
+            acc + " | " + value['desc']
+        }
+
+        println "answer id: " + a['id']
+        println "answer text: " + a['answerText']
+        println "    question id: ${q['id']} desc: ${q['desc']} code: ${c['id']}"
+        println "    question values: ${valuesStr}"
+    }
+}
+
 // --------------- main
 
 def choice = args[0]
@@ -42,4 +76,6 @@ if (! choice) {
     getThings(CODES_ENDPOINT) 
 } else if (choice.equalsIgnoreCase('answers')) {
     getThings(ANSWERS_ENDPOINT) 
+} else if (choice.equalsIgnoreCase('usecase1')) {
+    doUseCase1()
 }

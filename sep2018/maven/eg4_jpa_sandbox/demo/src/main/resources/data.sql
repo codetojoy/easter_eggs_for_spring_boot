@@ -15,12 +15,12 @@ insert into value (id,code_id,desc) values (701,777,'No');
 
 insert into value (id,code_id,desc) values (800,888,'Excellent');
 insert into value (id,code_id,desc) values (801,888,'Very Good');
-insert into value (id,code_id,desc) values (801,888,'Fair');
-insert into value (id,code_id,desc) values (801,888,'Poor');
+insert into value (id,code_id,desc) values (802,888,'Fair');
+insert into value (id,code_id,desc) values (803,888,'Poor');
 
 insert into value (id,code_id,desc) values (900,999,'Often');
 insert into value (id,code_id,desc) values (901,999,'Sometimes');
-insert into value (id,code_id,desc) values (901,999,'Never');
+insert into value (id,code_id,desc) values (902,999,'Never');
 
 -- questions
 

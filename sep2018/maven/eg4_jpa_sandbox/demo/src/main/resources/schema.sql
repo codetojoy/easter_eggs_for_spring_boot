@@ -27,7 +27,8 @@ CREATE TABLE answer (
     id INTEGER NOT NULL AUTO_INCREMENT,
     item_id INTEGER NOT NULL,
     question_id INTEGER NOT NULL,
-    answer_text VARCHAR(255) NOT NULL
+    answer_text VARCHAR(255) NOT NULL,
+    foreign key (item_id) references item(id)
 );
 
 CREATE TABLE value (
