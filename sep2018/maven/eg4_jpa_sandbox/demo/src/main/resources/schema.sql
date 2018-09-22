@@ -23,6 +23,19 @@ CREATE TABLE question (
     foreign key (code_id) references code(id)
 );
 
+CREATE TABLE question_group (
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    question_id INTEGER NOT NULL,
+    prefix VARCHAR(255) NOT NULL,
+    sequence INTEGER NOT NULL,
+    tier INTEGER NOT NULL,
+    q_activation_threshold INTEGER NOT NULL,
+    has_comments BOOLEAN NOT NULL,
+    is_mandatory BOOLEAN NOT NULL,
+    is_mutex BOOLEAN NOT NULL,
+    foreign key (question_id) references question(id)
+);
+
 CREATE TABLE answer (
     id INTEGER NOT NULL AUTO_INCREMENT,
     item_id INTEGER NOT NULL,

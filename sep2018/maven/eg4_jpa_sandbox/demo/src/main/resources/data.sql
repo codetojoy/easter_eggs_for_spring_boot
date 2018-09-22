@@ -22,7 +22,7 @@ insert into value (id,code_id,desc) values (900,999,'Often');
 insert into value (id,code_id,desc) values (901,999,'Sometimes');
 insert into value (id,code_id,desc) values (902,999,'Never');
 
--- questions
+-- question
 
 insert into question (id,code_id,desc) values (50,777,'question 1a');
 insert into question (id,code_id,desc) values (60,888,'question 1b');
@@ -30,7 +30,33 @@ insert into question (id,code_id,desc) values (70,999,'question 2');
 insert into question (id,code_id,desc) values (80,999,'question 3a');
 insert into question (id,code_id,desc) values (20,777,'question 3b');
 
--- answers
+-- question_group
+
+-- tier 1
+
+insert into question_group
+(id,question_id,prefix,sequence,tier,q_activation_threshold,has_comments,is_mandatory,is_mutex)
+values (1,50,'1a',1,1,2,FALSE,FALSE,FALSE);
+
+insert into question_group
+(id,question_id,prefix,sequence,tier,q_activation_threshold,has_comments,is_mandatory,is_mutex)
+values (3,70,'2',3,1,0,FALSE,FALSE,FALSE);
+
+insert into question_group
+(id,question_id,prefix,sequence,tier,q_activation_threshold,has_comments,is_mandatory,is_mutex)
+values (4,80,'3a',4,1,1,FALSE,FALSE,FALSE);
+
+-- tier 2
+
+insert into question_group
+(id,question_id,prefix,sequence,tier,q_activation_threshold,has_comments,is_mandatory,is_mutex)
+values (2,60,'1b',2,2,0,FALSE,FALSE,FALSE);
+
+insert into question_group
+(id,question_id,prefix,sequence,tier,q_activation_threshold,has_comments,is_mandatory,is_mutex)
+values (5,20,'3b',5,2,0,FALSE,FALSE,FALSE);
+
+-- answer
 
 insert into answer (id,item_id,question_id,answer_text) values (1,5150,50,'Yes');
 insert into answer (id,item_id,question_id,answer_text) values (2,5150,60,'Excellent');
