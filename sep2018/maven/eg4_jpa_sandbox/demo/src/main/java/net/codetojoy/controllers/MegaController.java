@@ -64,6 +64,7 @@ public class MegaController {
     public @ResponseBody Score getScoreForQuestionAndValue(@RequestParam Long questionId,
                                                            @RequestParam Long valueId) throws Exception {
 
+        /*
         // this is really bad ...
         // need a service and more importantly a JPA query
         List<Score> scores = scoreRepository.findAll();
@@ -79,6 +80,9 @@ public class MegaController {
                 break;
             }
         }
+        */
+
+        Score score = scoreRepository.findByQuestionIdAndValueId(questionId, valueId);
 
         if (score != null) {
             System.out.println("TRACER score: " + score.getId());
