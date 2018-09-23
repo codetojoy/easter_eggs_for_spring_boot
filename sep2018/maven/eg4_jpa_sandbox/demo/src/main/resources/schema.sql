@@ -53,3 +53,12 @@ CREATE TABLE value (
     desc VARCHAR(255) NOT NULL,
     foreign key (code_id) references code(id)
 );
+
+CREATE TABLE score (
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    question_id INTEGER NOT NULL,
+    value_id INTEGER NOT NULL,
+    score_value INTEGER NOT NULL,
+    foreign key (question_id) references question(id),
+    foreign key (value_id) references value(id)
+);

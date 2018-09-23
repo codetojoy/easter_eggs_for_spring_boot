@@ -5,7 +5,6 @@ insert into books (id,author,title) values (3, 'Richard Thaler', 'Misbehaving');
 insert into item (id,name,score) values (5150, 'Randy Rhoads', 0);
 
 -- code / values
-
 insert into code (id,name) values (777,'CODE_777');
 insert into code (id,name) values (888,'CODE_888');
 insert into code (id,name) values (999,'CODE_999');
@@ -23,12 +22,31 @@ insert into value (id,code_id,desc) values (901,999,'Sometimes');
 insert into value (id,code_id,desc) values (902,999,'Never');
 
 -- question
-
 insert into question (id,code_id,desc) values (50,777,'question 1a');
 insert into question (id,code_id,desc) values (60,888,'question 1b');
 insert into question (id,code_id,desc) values (70,999,'question 2');
 insert into question (id,code_id,desc) values (80,999,'question 3a');
 insert into question (id,code_id,desc) values (20,777,'question 3b');
+
+-- score_value
+insert into score(id,question_id,value_id,score_value) values (90,50,700,1);
+insert into score(id,question_id,value_id,score_value) values (91,50,701,1);
+
+insert into score(id,question_id,value_id,score_value) values (92,60,800,0);
+insert into score(id,question_id,value_id,score_value) values (92,60,801,1);
+insert into score(id,question_id,value_id,score_value) values (93,60,802,1);
+insert into score(id,question_id,value_id,score_value) values (94,60,803,2);
+
+insert into score(id,question_id,value_id,score_value) values (95,70,900,0);
+insert into score(id,question_id,value_id,score_value) values (96,70,901,0);
+insert into score(id,question_id,value_id,score_value) values (97,70,902,0);
+
+insert into score(id,question_id,value_id,score_value) values (98,80,900,1);
+insert into score(id,question_id,value_id,score_value) values (99,80,901,1);
+insert into score(id,question_id,value_id,score_value) values (100,80,902,1);
+
+insert into score(id,question_id,value_id,score_value) values (101,20,700,0);
+insert into score(id,question_id,value_id,score_value) values (102,20,701,0);
 
 -- question_group
 
