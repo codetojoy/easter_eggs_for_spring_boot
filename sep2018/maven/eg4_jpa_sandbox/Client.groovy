@@ -7,12 +7,17 @@ import org.apache.http.client.methods.*
 import org.apache.http.entity.*
 import org.apache.http.impl.client.*
 
+def API_ROOT = "http://localhost:7170/api"
+
 def BOOKS_ENDPOINT = 'http://localhost:7170/api/mega/books'
 def ITEMS_ENDPOINT = 'http://localhost:7170/api/mega/items'
 def QUESTIONS_ENDPOINT = 'http://localhost:7170/api/mega/questions'
 def QUESTION_GROUP_ENDPOINT = 'http://localhost:7170/api/mega/question_group'
 def CODES_ENDPOINT = 'http://localhost:7170/api/mega/codes'
 def ANSWERS_ENDPOINT = 'http://localhost:7170/api/mega/answers'
+def SCORES_ENDPOINT = 'http://localhost:7170/api/mega/scores'
+
+def GET_SCORE_FOR_ANSWER_ENDPOINT = "${API_ROOT}/mega/scores?questionId=%d&valueId=%d"
 
 def buildJSON = { response ->
     def bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))
@@ -82,6 +87,22 @@ def doUseCase2 = {
     }
 }
 
+// get score by Q and V
+
+def doUseCase3 = { ->
+    def client = HttpClientBuilder.create().build()
+    def slurper = new JsonSlurper()
+
+    def questionId = 60
+    def valueId = 803
+    def url = String.format(GET_SCORE_FOR_ANSWER_ENDPOINT, questionId, valueId)
+    def httpGet = new HttpGet(url)
+    def response = client.execute(httpGet)
+    def jsonResponse = buildJSON(response)
+    def score = slurper.parseText(jsonResponse)
+    println "TRACER score: " + score['scoreValue']
+}
+
 // --------------- main
 
 def choice = args[0]
@@ -100,8 +121,12 @@ if (! choice) {
     getThings(CODES_ENDPOINT) 
 } else if (choice.equalsIgnoreCase('answers')) {
     getThings(ANSWERS_ENDPOINT) 
+} else if (choice.equalsIgnoreCase('scores')) {
+    getThings(SCORES_ENDPOINT) 
 } else if (choice.equalsIgnoreCase('uc1')) {
     doUseCase1()
 } else if (choice.equalsIgnoreCase('uc2')) {
     doUseCase2()
+} else if (choice.equalsIgnoreCase('uc3')) {
+    doUseCase3()
 }

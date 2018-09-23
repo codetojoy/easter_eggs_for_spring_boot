@@ -7,14 +7,17 @@ import org.apache.http.client.methods.*
 import org.apache.http.entity.*
 import org.apache.http.impl.client.*
 
-def BOOKS_ENDPOINT = 'http://localhost:7170/api/mega/books'
-def ITEMS_ENDPOINT = 'http://localhost:7170/api/mega/items'
-def QUESTIONS_ENDPOINT = 'http://localhost:7170/api/mega/questions'
-def QUESTION_GROUP_ENDPOINT = 'http://localhost:7170/api/mega/question_group'
-def CODES_ENDPOINT = 'http://localhost:7170/api/mega/codes'
-def ANSWERS_ENDPOINT = 'http://localhost:7170/api/mega/answers'
+def API_ROOT = "http://localhost:7170/api"
 
-def UPDATE_ANSWER_ENDPOINT = 'http://localhost:7170/api/mega/answers/%d?answerText=%s'
+def BOOKS_ENDPOINT = "${API_ROOT}/mega/books"
+def ITEMS_ENDPOINT = "${API_ROOT}/mega/items"
+def QUESTIONS_ENDPOINT = "${API_ROOT}/mega/questions"
+def QUESTION_GROUP_ENDPOINT = "${API_ROOT}/mega/question_group"
+def CODES_ENDPOINT = "${API_ROOT}/mega/codes"
+def ANSWERS_ENDPOINT = "${API_ROOT}/mega/answers"
+
+def UPDATE_ANSWER_ENDPOINT = "${API_ROOT}/mega/answers/%d?answerText=%s&score=%d"
+def GET_SCORE_FOR_ANSWER_ENDPOINT = "${API_ROOT}/mega/scores?questionId=%d&valueId=%d"
 
 def client = HttpClientBuilder.create().build()
 def slurper = new JsonSlurper()
@@ -34,8 +37,24 @@ def getThings = { endpoint ->
 //////////////////////
 // pretty print item
 
-def updateAnswer = { answerId, answerText  ->
-    def url = String.format(UPDATE_ANSWER_ENDPOINT, answerId, answerText)
+def getScore = { questionId, valueId ->
+    def url = String.format(GET_SCORE_FOR_ANSWER_ENDPOINT, questionId, valueId)
+    def httpGet = new HttpGet(url)
+    def response = client.execute(httpGet)
+    def jsonResponse = buildJSON(response)
+    def score = slurper.parseText(jsonResponse)
+    return score
+}
+
+def updateAnswer = { questionId, answerId, inputValue  ->
+    def inputValueId = inputValue['id']
+    def inputValueDesc = inputValue['desc']
+
+    def score = getScore(questionId, inputValueId)
+    def scoreValue = score['scoreValue']
+    println "TRACER score is: " + scoreValue
+
+    def url = String.format(UPDATE_ANSWER_ENDPOINT, answerId, inputValueDesc, scoreValue)
 
     def httpPut = new HttpPut(url)
 
@@ -59,6 +78,7 @@ def getItem = {
     answers.each { answer ->
         def input = ""
         def question = answer['question']
+        def questionId = question['id']
         def code = question['code']
         def values = code['values']
         def valuesStr = values.inject("") { acc, value ->
@@ -72,7 +92,9 @@ def getItem = {
         input = scanner.nextLine()
 
         println "your answer is: " + input
-        updateAnswer(answer['id'], input)
+        def inputValue = values.find { v -> v.desc.equalsIgnoreCase(input) }
+        assert inputValue
+        updateAnswer(questionId, answer['id'], inputValue)
     
     /*
         def valuesStr = values.inject("") { acc, value ->

@@ -19,11 +19,14 @@ public class MegaController {
     private AnswerRepository answerRepository;
 
     private QuestionGroupRepository questionGroupRepository;
+    private ScoreRepository scoreRepository;
 
     @Autowired
     public MegaController(BookRepository bookRepository, ItemRepository itemRepository,
                           QuestionRepository questionRepository, CodeRepository codeRepository,
-                          AnswerRepository answerRepository, QuestionGroupRepository questionGroupRepository) {
+                          AnswerRepository answerRepository,
+                          QuestionGroupRepository questionGroupRepository,
+                          ScoreRepository scoreRepository) {
         this.bookRepository = bookRepository;
         this.itemRepository = itemRepository;
         this.questionRepository = questionRepository;
@@ -31,23 +34,62 @@ public class MegaController {
         this.answerRepository = answerRepository;
 
         this.questionGroupRepository = questionGroupRepository;
+        this.scoreRepository = scoreRepository;
     }
 
     // ---- PUT
 
     @RequestMapping(value="/answers/{id}",method=RequestMethod.PUT)
     public @ResponseBody Answer updateAnswer(@PathVariable("id") long id,
-                                             @RequestParam String answerText) throws Exception {
+                                             @RequestParam String answerText,
+                                             @RequestParam Integer score) throws Exception {
         // TODO: this should go in a service
         Optional<Answer> answerOpt = answerRepository.findById(id);
         Answer answer = answerOpt.get();
 
-        System.out.println("TRACER PUT answer: " + answer.getId() + " text: " + answerText);
+        answer.setAnswerText(answerText);
+        answer.setScore(score);
+
+        answerRepository.saveAndFlush(answer);
+        // System.out.println("TRACER PUT answer: " + answer.getId() + " text: " + answerText);
+
+        System.out.println("TRACER PUT answer OK");
 
         return answer;
     }
 
-    // ---- GET
+    // ---- non-trivial GET
+
+    @RequestMapping(value="/scores",method=RequestMethod.GET)
+    public @ResponseBody Score getScoreForQuestionAndValue(@RequestParam Long questionId,
+                                                           @RequestParam Long valueId) throws Exception {
+
+        // this is really bad ...
+        // need a service and more importantly a JPA query
+        List<Score> scores = scoreRepository.findAll();
+        Score score = null;
+
+        System.out.println("TRACER debug TARGET: score " + questionId + " " + valueId);
+
+        for (Score thisScore : scores) {
+            Long thisQuestionId = thisScore.getQuestion().getId();
+            Long thisValueId = thisScore.getValue().getId();
+            if (thisQuestionId.equals(questionId) && thisValueId.equals(valueId)) {
+                score = thisScore;
+                break;
+            }
+        }
+
+        if (score != null) {
+            System.out.println("TRACER score: " + score.getId());
+        } else {
+            System.out.println("TRACER NULL score");
+        }
+
+        return score;
+    }
+
+    // ---- simple GET
 
     @RequestMapping(path="/books",method=RequestMethod.GET, produces="application/json")
     public @ResponseBody List<Book> getBooks() throws Exception {
@@ -82,6 +124,12 @@ public class MegaController {
     @RequestMapping(path="/answers",method=RequestMethod.GET, produces="application/json")
     public @ResponseBody List<Answer> getAnswers() throws Exception {
         List<Answer> results = answerRepository.findAll();
+        return results;
+    }
+
+    @RequestMapping(path="/scores",method=RequestMethod.GET, produces="application/json")
+    public @ResponseBody List<Score> getScores() throws Exception {
+        List<Score> results = scoreRepository.findAll();
         return results;
     }
 }
