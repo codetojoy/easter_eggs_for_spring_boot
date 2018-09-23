@@ -53,7 +53,7 @@ public class MegaController {
 
     @RequestMapping(path="/question_group",method=RequestMethod.GET, produces="application/json")
     public @ResponseBody List<QuestionGroup> getQuestionGroup() throws Exception {
-        List<QuestionGroup> results = questionGroupRepository.findAll();
+        List<QuestionGroup> results = questionGroupRepository.findAllWithOrder();
         return results;
     }
 

@@ -95,7 +95,7 @@ if (! choice) {
     getThings(BOOKS_ENDPOINT)
 } else if (choice.equalsIgnoreCase('items')) {
     getThings(ITEMS_ENDPOINT)
-} else if (choice.equalsIgnoreCase('q2')) {
+} else if (choice.equalsIgnoreCase('qg')) {
     getThings(QUESTION_GROUP_ENDPOINT)
 } else if (choice.equalsIgnoreCase('questions')) {
     getThings(QUESTIONS_ENDPOINT)
