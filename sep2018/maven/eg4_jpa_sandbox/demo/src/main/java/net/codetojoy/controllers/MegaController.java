@@ -33,6 +33,20 @@ public class MegaController {
         this.questionGroupRepository = questionGroupRepository;
     }
 
+    // ---- PUT
+
+    @RequestMapping(value="/answers/{id}",method=RequestMethod.PUT)
+    public @ResponseBody Answer updateAnswer(@PathVariable("id") long id) throws Exception {
+        Optional<Answer> answerOpt = answerRepository.findById(id);
+        Answer answer = answerOpt.get();
+
+        System.out.println("TRACER PUT answer: " + answer.getId());
+
+        return answer;
+    }
+
+    // ---- GET
+
     @RequestMapping(path="/books",method=RequestMethod.GET, produces="application/json")
     public @ResponseBody List<Book> getBooks() throws Exception {
         List<Book> results = bookRepository.findAll();

@@ -14,6 +14,11 @@ def QUESTION_GROUP_ENDPOINT = 'http://localhost:7170/api/mega/question_group'
 def CODES_ENDPOINT = 'http://localhost:7170/api/mega/codes'
 def ANSWERS_ENDPOINT = 'http://localhost:7170/api/mega/answers'
 
+def UPDATE_ANSWER_ENDPOINT = 'http://localhost:7170/api/mega/answers/%d'
+
+def client = HttpClientBuilder.create().build()
+def slurper = new JsonSlurper()
+
 def buildJSON = { response ->
     def bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))
     def jsonResponse = bufferedReader.getText()
@@ -22,7 +27,6 @@ def buildJSON = { response ->
 
 def getThings = { endpoint ->
     def httpGet = new HttpGet(endpoint)
-    def client = HttpClientBuilder.create().build()
     def response = client.execute(httpGet)
     println buildJSON(response)
 }
@@ -30,10 +34,15 @@ def getThings = { endpoint ->
 //////////////////////
 // pretty print item
 
-def getItem = { 
-    def client = HttpClientBuilder.create().build()
-    def slurper = new JsonSlurper()
+def updateAnswer = { answerId, answerValue  ->
+    def url = String.format(UPDATE_ANSWER_ENDPOINT, answerId)
+    def httpPut = new HttpPut(url)
+    def response = client.execute(httpPut)
+    def jsonResponse = buildJSON(response)
+    println "TRACER answer saved. response: " +  jsonResponse
+}
 
+def getItem = { 
     def httpGet = new HttpGet(ITEMS_ENDPOINT)
     def response = client.execute(httpGet)
     def jsonResponse = buildJSON(response)
@@ -61,6 +70,7 @@ def getItem = {
         input = scanner.nextLine()
 
         println "your answer is: " + input
+        updateAnswer(answer['id'], input)
     
     /*
         def valuesStr = values.inject("") { acc, value ->
@@ -78,9 +88,6 @@ def getItem = {
 // pretty print questions/group
 
 def doUseCase2 = { 
-    def client = HttpClientBuilder.create().build()
-    def slurper = new JsonSlurper()
-
     def httpGet = new HttpGet(QUESTION_GROUP_ENDPOINT)
     def response = client.execute(httpGet)
     def jsonResponse = buildJSON(response)
