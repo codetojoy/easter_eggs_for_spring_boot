@@ -8,7 +8,8 @@ CREATE TABLE books (
 
 CREATE TABLE item (
     id INTEGER NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    score INTEGER NOT NULL
 );
 
 CREATE TABLE code (
@@ -41,6 +42,8 @@ CREATE TABLE answer (
     item_id INTEGER NOT NULL,
     question_id INTEGER NOT NULL,
     answer_text VARCHAR(255) NOT NULL,
+    comments VARCHAR(255) NOT NULL,
+    score INTEGER NOT NULL,
     foreign key (item_id) references item(id)
 );
 

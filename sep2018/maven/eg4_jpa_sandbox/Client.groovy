@@ -41,9 +41,7 @@ def doUseCase1 = {
     def item = doc[0]
     def answers = item['answers']
 
-    // println item
-    println "item id: " + item['id']
-    println "item name: " + item['name']
+    println "item id: ${item['id']} name: ${item['name']} score: ${item['score']}"
     println "# answers: " + answers.size()
 
     answers.each { a ->
@@ -55,8 +53,7 @@ def doUseCase1 = {
             acc + " | " + value['desc']
         }
 
-        println "answer id: " + a['id']
-        println "answer text: " + a['answerText']
+        println "answer id: ${a['id']} text: ${a['answerText']} score: ${a['score']}"
         println "    question id: ${q['id']} desc: ${q['desc']} code: ${c['id']}"
         println "    question values: ${valuesStr}"
     }

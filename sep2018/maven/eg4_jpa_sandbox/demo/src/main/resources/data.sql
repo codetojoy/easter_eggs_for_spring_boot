@@ -2,7 +2,7 @@ insert into books (id,author,title) values (1, 'Michael Lewis', 'Moneyball');
 insert into books (id,author,title) values (2, 'Malcolm Gladwell', 'Outliers');
 insert into books (id,author,title) values (3, 'Richard Thaler', 'Misbehaving');
 
-insert into item (id,name) values (5150, 'Randy Rhoads');
+insert into item (id,name,score) values (5150, 'Randy Rhoads', 0);
 
 -- code / values
 
@@ -58,8 +58,17 @@ values (5,20,'3b',5,2,0,FALSE,FALSE,FALSE);
 
 -- answer
 
-insert into answer (id,item_id,question_id,answer_text) values (1,5150,50,'Yes');
-insert into answer (id,item_id,question_id,answer_text) values (2,5150,60,'Excellent');
-insert into answer (id,item_id,question_id,answer_text) values (3,5150,70,'Often');
-insert into answer (id,item_id,question_id,answer_text) values (4,5150,80,'Never');
-insert into answer (id,item_id,question_id,answer_text) values (5,5150,20,'No');
+insert into answer (id,item_id,question_id,answer_text,comments,score)
+values (1,5150,50,'Yes','',0);
+
+insert into answer (id,item_id,question_id,answer_text,comments,score)
+values (2,5150,60,'Excellent','',1);
+
+insert into answer (id,item_id,question_id,answer_text,comments,score)
+values (3,5150,70,'Often','',2);
+
+insert into answer (id,item_id,question_id,answer_text,comments,score)
+values (4,5150,80,'Never','',-1);
+
+insert into answer (id,item_id,question_id,answer_text,comments,score)
+values (5,5150,20,'No','',1);

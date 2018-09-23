@@ -17,6 +17,9 @@ public class Item implements Serializable {
     @OneToMany  @JoinColumn(name = "item_id")
     private List<Answer> answers;
 
+    @Column(name="score")
+    private int score;
+
     // -----------
 
     public Long getId() { return id; }
@@ -27,4 +30,7 @@ public class Item implements Serializable {
 
     public List<Answer> getAnswers() { return answers; }
     public void setAnswers(List<Answer> answers) { this.answers = answers; }
+
+    public int getScore() { return score; }
+    public void setScore(int score) { this.score = score; }
 }
