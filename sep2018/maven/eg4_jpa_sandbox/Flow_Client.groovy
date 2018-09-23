@@ -14,7 +14,7 @@ def QUESTION_GROUP_ENDPOINT = 'http://localhost:7170/api/mega/question_group'
 def CODES_ENDPOINT = 'http://localhost:7170/api/mega/codes'
 def ANSWERS_ENDPOINT = 'http://localhost:7170/api/mega/answers'
 
-def UPDATE_ANSWER_ENDPOINT = 'http://localhost:7170/api/mega/answers/%d'
+def UPDATE_ANSWER_ENDPOINT = 'http://localhost:7170/api/mega/answers/%d?answerText=%s'
 
 def client = HttpClientBuilder.create().build()
 def slurper = new JsonSlurper()
@@ -34,9 +34,11 @@ def getThings = { endpoint ->
 //////////////////////
 // pretty print item
 
-def updateAnswer = { answerId, answerValue  ->
-    def url = String.format(UPDATE_ANSWER_ENDPOINT, answerId)
+def updateAnswer = { answerId, answerText  ->
+    def url = String.format(UPDATE_ANSWER_ENDPOINT, answerId, answerText)
+
     def httpPut = new HttpPut(url)
+
     def response = client.execute(httpPut)
     def jsonResponse = buildJSON(response)
     println "TRACER answer saved. response: " +  jsonResponse

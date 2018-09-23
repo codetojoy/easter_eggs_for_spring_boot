@@ -36,11 +36,13 @@ public class MegaController {
     // ---- PUT
 
     @RequestMapping(value="/answers/{id}",method=RequestMethod.PUT)
-    public @ResponseBody Answer updateAnswer(@PathVariable("id") long id) throws Exception {
+    public @ResponseBody Answer updateAnswer(@PathVariable("id") long id,
+                                             @RequestParam String answerText) throws Exception {
+        // TODO: this should go in a service
         Optional<Answer> answerOpt = answerRepository.findById(id);
         Answer answer = answerOpt.get();
 
-        System.out.println("TRACER PUT answer: " + answer.getId());
+        System.out.println("TRACER PUT answer: " + answer.getId() + " text: " + answerText);
 
         return answer;
     }
