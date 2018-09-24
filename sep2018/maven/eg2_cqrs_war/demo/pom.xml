@@ -6,6 +6,13 @@
 	<groupId>net.codetojoy</groupId>
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+<!--
+self-contained JAR mode
+	<packaging>jar</packaging>
+-->
+<!--
+TOMCAT / WAR mode
+-->
 	<packaging>war</packaging>
 
 	<name>demo</name>
@@ -38,6 +45,9 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+<!--
+TOMCAT / WAR mode
+-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>

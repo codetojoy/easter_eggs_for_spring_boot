@@ -8,4 +8,6 @@
     * changing the `BookApplication.java`
     * details [here](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-create-a-deployable-war-file)
 * TODO: how do we have both ??
+    * see comments in `pom.xml` and `BookApplication.java`
+    * both work, but it requires commenting out some stuff
 

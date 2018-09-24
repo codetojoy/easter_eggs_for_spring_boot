@@ -6,6 +6,19 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+/*
+self-contained JAR
+@SpringBootApplication
+public class BookApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(BookApplication.class, args);
+	}
+}
+*/
+
+/*
+TOMCAT WAR file
+*/
 @SpringBootApplication
 public class BookApplication extends SpringBootServletInitializer {
 
